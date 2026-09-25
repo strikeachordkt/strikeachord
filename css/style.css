@@ -402,6 +402,27 @@ tr:last-child td{ border-bottom:0; }
   background:#fff; border:1px solid var(--rule); border-radius:14px; }
 @media (max-width:1000px){ .video-fig{ width:100%; } }
 
+/* ---------- phones and small tablets --------------------------------------- */
+/* The page is authored at a doubled root size for big displays. On a narrow screen that
+   leaves a few words per line, and the 3rem gutters eat a quarter of the width, so the root
+   size and the gutters come back down and the wide card grids fold to two columns. */
+@media (max-width:900px){
+  html{ font-size:125%; }
+  .wrap{ width:calc(100% - 1.5rem); }
+  .tabs{ gap:.4rem; }
+  .cmp .panels, .cmp .panels.four, .cmp .panels.six{ grid-template-columns:repeat(2,1fr); }
+  .cmp .panels.two{ grid-template-columns:repeat(2,1fr); }
+  .video-fig{ width:100%; }
+}
+@media (max-width:520px){
+  html{ font-size:105%; }
+  .wrap{ width:calc(100% - 1rem); }
+  .tabs{ grid-auto-flow:row; grid-template-columns:1fr; }
+  .words{ grid-template-columns:1fr; }
+  .cmp .prompt{ font-size:.86rem; }
+  .pager-btn{ width:2.1rem; height:2.1rem; font-size:1.2rem; }
+}
+
 /* ---------- bibtex -------------------------------------------------------- */
 pre.bib{
   background:var(--card); border:1px solid var(--rule); border-radius:12px;
