@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strike a Chord: Modal Kinetic Typography</title>
+<meta name="description" content="Kinetic typography driven by a letter's own natural motions. Results across 26 letters, a hundred concepts and twelve typefaces.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ======================= hero ======================= -->
+<header class="hero">
+  <div class="wrap">
+    <h1>Strike a Chord!</h1>
+    <p class="sub">Modal Kinetic Typography</p>
+  </div>
+</header>
+
+<!-- ======================= teaser video ======================= -->
+<section id="teaser-video">
+  <div class="wrap">
+    <figure class="video-fig">
+      <video src="assets/video/teaser.mp4" poster="assets/video/teaser_poster.jpg"
+             controls autoplay muted loop playsinline preload="metadata"
+             width="1920" height="1080"></video>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= abstract ======================= -->
+<section id="abstract">
+  <div class="wrap">
+    <p class="eyebrow">Abstract</p>
+    <div class="abstract">
+      <p>We introduce <em>modal kinetic typography</em>, which animates a vector glyph to express a semantic concept while keeping it legible. Our key idea is to build motion from the glyph&rsquo;s <em>natural vibration modes</em>. Specifically, a finite-element eigenproblem assembled from the vector outline yields the glyph&rsquo;s softest modes, for the whole letter and for each of its parts, allowing it to bend. The problem&rsquo;s zero-energy solutions, i.e., rigid translations and rotations, are applied in closed form to each part, allowing parts to also move as blocks. To animate the glyph, a frozen video diffusion model supervises only the modes&rsquo; amplitudes and phases. Our modal approach addresses two weaknesses of prior work. Free-form point optimization under video score distillation (SDS) moves each point and frame independently along noisy gradients, tearing the outline and causing jitter. In contrast, our modes are smooth along the outline and driven by a few whole-cycle harmonics, which restricts these gradients to smooth, seamlessly looping motion. On the other hand, structured alternatives rely on skeletons or keypoints from category-specific priors, whereas our modes come from the glyph itself; the only prior is a list naming each letter&rsquo;s moving parts, generated once for the whole alphabet by a language model. In modal kinetic typography, shape and motion are disentangled by construction: a single base outline is sculpted toward the concept, and the modal drive cannot alter it, so a letter can also be animated without being reshaped. Across letters and typefaces, our method produces more articulated and smoother motion than Dynamic Typography and AniClipart at comparable or better concept alignment, with less glyph tearing than Dynamic Typography, and is preferred by human raters, including in a frozen-shape setting where motion alone must carry the concept. For reference, raters also prefer our method over Astra (GPT-6).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= results note (shown above every tab) ======================= -->
+<div class="results-note">
+  <div class="wrap">
+    <p class="callout">In the results below, the word around each animated letter is there
+    to give the concept a context; <b>it is not necessarily a part of the prompt</b>. Every result
+    animates a single letter, driven by that letter&rsquo;s caption alone. The remaining letters
+    are ordinary static type, set in the same typeface.</p>
+  </div>
+</div>
+
+<!-- ======================= result tabs ======================= -->
+<!-- One button per result section below; js/site.js shows the chosen section and hides the
+     rest. Without JS all six sections simply stay visible. -->
+<nav class="tabbar" id="result-tabs" aria-label="Result sections">
+  <div class="wrap tabs" role="tablist">
+    <button class="tab" role="tab" aria-controls="results-shape-motion">Visual Results: Shape + Motion</button>
+    <button class="tab" role="tab" aria-controls="results-motion-only">Visual Results: Motion Only</button>
+    <button class="tab" role="tab" aria-controls="compare-shape-motion">Comparison: Shape + Motion</button>
+    <button class="tab" role="tab" aria-controls="compare-motion-only">Comparison: Motion Only</button>
+  </div>
+</nav>
+
+<!-- ======================= visual results: shape + motion ======================= -->
+<section id="results-shape-motion" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Visual Results: Shape + Motion</h2>
+    <div class="words" id="words-shape-motion">
+      <figure class="word">
+        <img src="assets/words/KNIGHT.gif" alt="The word KNIGHT, with the K animated as a knight swinging a sword.">
+        <figcaption>&ldquo;A knight swings his sword&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/ROOSTER.gif" alt="The word ROOSTER, with the R animated as a rooster strutting and bobbing its head.">
+        <figcaption>&ldquo;A rooster strutting, its head bobbing forward and back with each step&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/HEEL.gif" alt="The word HEEL, with the final L animated as a heavy boot tapping its toe.">
+        <figcaption>&ldquo;A heavy boot tapping its toe up and down against the ground&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/YOGA.gif" alt="The word YOGA, with the Y animated as a figure raising both arms overhead and lowering them.">
+        <figcaption>&ldquo;A figure raising both arms high overhead and lowering them to the sides&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/LULL.gif" alt="The word LULL, with the U animated as a slung hammock swinging in a lazy arc.">
+        <figcaption>&ldquo;A slung hammock swinging back and forth in a wide lazy arc&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/QUEEN.gif" alt="The word QUEEN, with the Q animated as a seated cat flicking its tail.">
+        <figcaption>&ldquo;A seated cat flicking its long tail back and forth&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SMOKE.gif" alt="The word SMOKE, with the S animated as a plume of smoke curling upward.">
+        <figcaption>&ldquo;A plume of smoke curling upward and unfurling as it rises&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/WHEE.gif" alt="The word WHEE, with the H animated as an empty playground swing swinging between its chains.">
+        <figcaption>&ldquo;An empty playground swing swinging back and forth between its chains&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SPRING.gif" alt="The word SPRING, with the N animated as a zigzag steel spring stretching and compressing.">
+        <figcaption>&ldquo;A zigzag steel spring stretching out long and compressing flat&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/BEE.gif" alt="The word BEE, with the B animated as a fat bumblebee hovering, its wings beating rapidly.">
+        <figcaption>&ldquo;A fat bumblebee hovering in place, its two wings beating rapidly up and down&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/WEIGHT.gif" alt="The word WEIGHT, with the T animated as a weightlifter pressing a barbell overhead.">
+        <figcaption>&ldquo;A weightlifter pressing a loaded barbell up overhead and lowering it back down&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/FARM.gif" alt="The word FARM, with the F animated as a wooden signpost creaking back and forth on its bracket.">
+        <figcaption>&ldquo;A wooden signpost creaking back and forth on its bracket in the wind&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/ACROBAT.gif" alt="The word ACROBAT, with the first A animated as an acrobat hanging from a bar, legs scissoring apart and back together.">
+        <figcaption>&ldquo;An acrobat hanging from a bar, legs scissoring far apart then crossing back together&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/KICKOFF.gif" alt="The word KICKOFF, with the second K animated as a signaller swinging both outstretched arms up and down.">
+        <figcaption>&ldquo;A signaller swinging both outstretched arms up and down together&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/LAWN.gif" alt="The word LAWN, with the W animated as tall grass blades swaying together in the wind.">
+        <figcaption>&ldquo;Tall grass blades swaying together from side to side in the wind&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/FLAG.gif" alt="The word FLAG, with the F animated as a long pennant flag snapping along its pole.">
+        <figcaption>&ldquo;A long pennant flag snapping back and forth along its pole in a stiff breeze&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/WHOA.gif" alt="The word WHOA, with the H animated as a tall stepladder rocking side to side.">
+        <figcaption>&ldquo;A tall stepladder rocking side to side on uneven ground&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/RAVEN.gif" alt="The word RAVEN, with the V animated as a bird beating both wings through deep strokes.">
+        <figcaption>&ldquo;A bird in flight beating both wings through deep full strokes, up and down&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/LIZARD.gif" alt="The word LIZARD, with the Z animated as a lizard scurrying, its body flexing side to side.">
+        <figcaption>&ldquo;A lizard scurrying forward, its body flexing from side to side with each step&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SWAN.gif" alt="The word SWAN, with the S animated as a swan bobbing its long curved neck down and up.">
+        <figcaption>&ldquo;A swan on water bobbing its long curved neck down and up&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/NOMAD.gif" alt="The word NOMAD, with the N animated as a walker striding, legs swinging forward and back.">
+        <figcaption>&ldquo;A walker striding along, legs swinging forward and back with each step&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/ROCKING.gif" alt="The word ROCKING, with the C animated as a rocking chair rocking on its runners.">
+        <figcaption>&ldquo;A rocking chair rocking&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PSI.gif" alt="The word PSI, with the P animated as a gauge needle tilting.">
+        <figcaption>&ldquo;A gauge needle tilting&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/FLEX.gif" alt="The word FLEX, with the X animated as a wrestler bracing defensively.">
+        <figcaption>&ldquo;A wrestler bracing defensively&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/CRAB.gif" alt="The word CRAB, with the C animated as a crab snapping its pincer open and shut.">
+        <figcaption>&ldquo;A crab snapping its pincer open and shut&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/KO.gif" alt="K.O, with the K animated as a boxer throwing a punch at a heavy bag.">
+        <figcaption>&ldquo;A boxer throwing a punch&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/BUTLER.gif" alt="The word BUTLER, with the L animated as a butler bowing politely from the waist.">
+        <figcaption>&ldquo;A butler bowing politely from the waist&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/EXERCISE.gif" alt="The word EXERCISE, with the X animated as a stick figure doing jumping jacks.">
+        <figcaption>&ldquo;A stick figure doing jumping jacks&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/ARF.gif" alt="The word ARF, with the R animated as an excited puppy bouncing.">
+        <figcaption>&ldquo;An excited puppy bouncing&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PECK.gif" alt="The word PECK, with the P animated as a bird bobbing its head.">
+        <figcaption>&ldquo;A bird bobbing its head&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/CAMEL.gif" alt="The word CAMEL, with the M animated as a camel walking steadily across the desert.">
+        <figcaption>&ldquo;A camel walks steadily across the desert&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/GYM.gif" alt="The word GYM, with the Y animated as a man lifting two dumbbells.">
+        <figcaption>&ldquo;A man doing exercise by lifting two dumbbells in both hands&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/HALLOWEEN.gif" alt="The word HALLOWEEN, with the W animated as a bat flapping its two broad wings.">
+        <figcaption>&ldquo;A bat in flight flapping its two broad wings up and down&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/BOOMBOX.gif" alt="The word BOOMBOX, with the X animated as a breakdancer mid-windmill.">
+        <figcaption>&ldquo;A breakdancer mid-windmill, limbs at angles&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/ENCORE.gif" alt="The word ENCORE, with the E animated as a one-man band, each arm playing a different instrument.">
+        <figcaption>&ldquo;A one-man band: each arm playing a different instrument&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PEDAL.gif" alt="The word PEDAL, with the A animated as a cyclist standing on the pedals, legs pumping alternately.">
+        <figcaption>&ldquo;A cyclist standing on the pedals, legs pumping alternately&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SMITH.gif" alt="The word SMITH, with the S animated as a wrought-iron bracket being hammered into its curve.">
+        <figcaption>&ldquo;A wrought-iron bracket being hammered into its curve, rebounding&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/ZEN.gif" alt="The word ZEN, with the Z animated as a deck chair refusing to unfold and snapping back.">
+        <figcaption>&ldquo;A deck chair refusing to unfold, snapping back&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/MERRY.gif" alt="The word MERRY, with the M animated as bunting strung between poles, swaying.">
+        <figcaption>&ldquo;Bunting strung between poles, swaying at a fair&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/WIPERS.gif" alt="The word WIPERS, with the W animated as a pair of windshield wipers swiping back and forth.">
+        <figcaption>&ldquo;A pair of windshield wipers swiping back and forth relentlessly in a heavy downpour&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/EVEREST.gif" alt="The word EVEREST, with the first E animated as a rock climber on a wall, three limbs holding and one reaching.">
+        <figcaption>&ldquo;A rock climber on a wall: three limbs holding, one reaching&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PUNCH.gif" alt="The word PUNCH, with the H animated as two boxers touching gloves across the ring.">
+        <figcaption>&ldquo;Two boxers touching gloves across the ring&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/HELICOPTER.gif" alt="The word HELICOPTER, with the T animated as a hovering helicopter whose crossbar tilts like a rotor.">
+        <figcaption>&ldquo;A helicopter: body hovering still, rotor (crossbar) tilting&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/DRILLING.gif" alt="The word DRILLING, with the N animated as a pump jack whose head nods on a fixed base.">
+        <figcaption>&ldquo;A pump jack: base fixed, head nodding&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/WEATHER.gif" alt="The word WEATHER, with the T animated as a weathervane rooster turning on a rigid post.">
+        <figcaption>&ldquo;A weathervane rooster turning, post rigid&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/JUNGLE.gif" alt="The word JUNGLE, with the J animated as a monkey hanging by its tail and swinging gently.">
+        <figcaption>&ldquo;A monkey hanging by its tail, swinging gently&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/LAKE.gif" alt="The word LAKE, with the L animated as a heron standing on water, its legs planted.">
+        <figcaption>&ldquo;A heron standing on water, legs planted&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/STRIKE.gif" alt="The word STRIKE, with the T animated as an umpire signaling, legs planted and arms calling the play.">
+        <figcaption>&ldquo;An umpire signaling: legs planted, arms calling the play&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/GOAL.gif" alt="The word GOAL, with the L animated as a boot kicking a ball, its standing leg firm.">
+        <figcaption>&ldquo;A boot kicking a ball, standing leg firm&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/TOASTER.gif" alt="The word TOASTER, with the E animated as a toaster whose two slices pop at different times.">
+        <figcaption>&ldquo;A toaster: body still, two slices popping at different times&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/RODENT.gif" alt="The word RODENT, with the D animated as a sitting hamster stuffing one cheek.">
+        <figcaption>&ldquo;A hamster stuffing one cheek, body sitting&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PERCH.gif" alt="The word PERCH, with the P animated as a griffin perched on a banner pole, its wings settling.">
+        <figcaption>&ldquo;A griffin perched on a banner pole, wings settling&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/LIZARD2.gif" alt="The word LIZARD, with the Z animated as a lizard doing push-ups, its tail flat.">
+        <figcaption>&ldquo;A lizard doing push-ups, tail flat&rdquo;</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= visual results: motion only ======================= -->
+<section id="results-motion-only" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Visual Results: Motion Only</h2>
+    <div class="words" id="words-motion-only">
+      <figure class="word">
+        <img src="assets/words/BLOB.gif" alt="The word BLOB, with the B animated as a blob of jelly jiggling, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A blob of jelly jiggling&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/READY.gif" alt="The word READY, with the Y animated as a student raising one arm to ask a question, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A student raising one arm to ask a question&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PARTY.gif" alt="The word PARTY, with the R animated as an excited puppy bouncing, the letter itself left unreshaped.">
+        <figcaption>&ldquo;An excited puppy bouncing&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/FLOAT.gif" alt="The word FLOAT, with the O animated floating side to side, the letter itself left unreshaped.">
+        <figcaption>&ldquo;Floating side to side like on water&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SNAKE_NS.gif" alt="The word SNAKE, with the S animated as a snake slithering fast, agitated, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A snake slithering fast, agitated&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/FLUTTER.gif" alt="The word FLUTTER, with the F animated as a flag fluttering on its pole, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A flag fluttering on its pole&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/MIRAGE.gif" alt="The word MIRAGE, with the M animated as a mountain range rippling in a mirage, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A mountain range rippling in a mirage&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/CATAPULT.gif" alt="The word CATAPULT, with the first T animated as a catapult arm snapping over, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A catapult: base planted, arm snapping over&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/EQUALIZER.gif" alt="The word EQUALIZER, with the first E animated as an electronic equalizer display bouncing, the letter itself left unreshaped.">
+        <figcaption>&ldquo;An electronic equalizer display bouncing up and down with three distinct horizontal bars&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SHOCK.gif" alt="The word SHOCK, with the K animated as a man jolting in surprise, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A man jolting in surprise&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/SHRUG.gif" alt="The word SHRUG, with the H animated as a man shrugging his shoulders, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A man shrugging his shoulders&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/RAVEN_MO.gif" alt="The word RAVEN, with the V animated as wings flapping slowly, the letter itself left unreshaped.">
+        <figcaption>&ldquo;Wings flapping slowly&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/NEON.gif" alt="The word NEON, with the N animated as a flag zigzag rippling, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A flag zigzag rippling&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/WICK.gif" alt="The word WICK, with the I animated as a candle flame flickering, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A candle flame flickering&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/YAY.gif" alt="The word YAY, with the Y animated as a man cheering with raised arms, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A man cheering with raised arms&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/HARVEST.gif" alt="The word HARVEST, with the T animated as a scarecrow's arms bouncing in wind, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A scarecrow's arms bouncing in wind&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/TANTRUM.gif" alt="The word TANTRUM, with the R animated as a man stomping his foot, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A man stomping his foot&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PSI_NS.gif" alt="The word PSI, with the P animated as a gauge needle tilting, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A gauge needle tilting&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/PIVOT.gif" alt="The word PIVOT, with the T animated as a wooden seesaw tipping end over end.">
+        <figcaption>&ldquo;A wooden seesaw tipping one end up and the other down, over and over&rdquo;</figcaption>
+      </figure>
+      <figure class="word">
+        <img src="assets/words/MARCH.gif" alt="The word MARCH, with the H animated as a soldier marching in place, the letter itself left unreshaped.">
+        <figcaption>&ldquo;A soldier marching in place, stiff and rhythmic&rdquo;</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= baseline comparison: shape + motion ======================= -->
+<section id="compare-shape-motion" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Comparison: Shape + Motion</h2>
+    <p class="callout">For Astra results we add the target letter and font in the prompt. Not every font is available to Astra, so it uses the closest one it has.</p>
+    <div class="cmp-grid" id="cmp-sm">
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;An empty playground swing swinging back and forth between its chains&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/086_H_swing_r2/input.png" alt="The input letter H in Noteworthy Bold."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/086_H_swing_r2/dt.gif" alt="Dynamic Typography's animation of the H as a swing."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/086_H_swing_r2/astra.gif" alt="Astra's animation of the H as a swing."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/086_H_swing_r2/ours.gif" alt="Strike a Chord's animation of the H as a swing."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A bird in flight beating both wings through deep full strokes, up and down&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/038_V_bird_r1/input.png" alt="The input letter V in Roboto Light."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/038_V_bird_r1/dt.gif" alt="Dynamic Typography's animation of the V as a bird in flight."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/038_V_bird_r1/astra.gif" alt="Astra's animation of the V as a bird in flight."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/038_V_bird_r1/ours.gif" alt="Strike a Chord's animation of the V as a bird in flight."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A breakdancer mid-windmill, limbs at angles&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/017_X_breakdancer_freezing/input.png" alt="The input letter X in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/017_X_breakdancer_freezing/dt.gif" alt="Dynamic Typography's animation of the X as a breakdancer mid-windmill."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/017_X_breakdancer_freezing/astra.gif" alt="Astra's animation of the X as a breakdancer mid-windmill."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/017_X_breakdancer_freezing/ours.gif" alt="Strike a Chord's animation of the X as a breakdancer mid-windmill."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A figure raising both arms high overhead and lowering them to the sides&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/029_Y_reach_r1/input.png" alt="The input letter Y in Indie Flower."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/029_Y_reach_r1/dt.gif" alt="Dynamic Typography's animation of the Y as a figure raising its arms."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/029_Y_reach_r1/astra.gif" alt="Astra's animation of the Y as a figure raising its arms."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/029_Y_reach_r1/ours.gif" alt="Strike a Chord's animation of the Y as a figure raising its arms."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A rooster strutting, its head bobbing forward and back with each step&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/008_R_rooster_r2/input.png" alt="The input letter R in Noteworthy Bold."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/008_R_rooster_r2/dt.gif" alt="Dynamic Typography's animation of the R as a strutting rooster."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/008_R_rooster_r2/astra.gif" alt="Astra's animation of the R as a strutting rooster."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/008_R_rooster_r2/ours.gif" alt="Strike a Chord's animation of the R as a strutting rooster."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A seated cat flicking its long tail back and forth&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/010_Q_cat/input.png" alt="The input letter Q in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/010_Q_cat/dt.gif" alt="Dynamic Typography's animation of the Q as a seated cat flicking its tail."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/010_Q_cat/astra.gif" alt="Astra's animation of the Q as a seated cat flicking its tail."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/010_Q_cat/ours.gif" alt="Strike a Chord's animation of the Q as a seated cat flicking its tail."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A heavy boot tapping its toe up and down against the ground&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/055_L_boot_r2/input.png" alt="The input letter L in Luckiest Guy."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/055_L_boot_r2/dt.gif" alt="Dynamic Typography's animation of the L as a heavy boot tapping its toe."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/055_L_boot_r2/astra.gif" alt="Astra's animation of the L as a heavy boot tapping its toe."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/055_L_boot_r2/ours.gif" alt="Strike a Chord's animation of the L as a heavy boot tapping its toe."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A figure doing jumping jacks, throwing all four limbs wide and snapping them together&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/082_X_jumpingjack_r1/input.png" alt="The input letter X in Roboto Light."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/082_X_jumpingjack_r1/dt.gif" alt="Dynamic Typography's animation of the X as a figure doing jumping jacks."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/082_X_jumpingjack_r1/astra.gif" alt="Astra's animation of the X as a figure doing jumping jacks."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/082_X_jumpingjack_r1/ours.gif" alt="Strike a Chord's animation of the X as a figure doing jumping jacks."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A tall stepladder rocking side to side on uneven ground&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/044_H_ladder_r1/input.png" alt="The input letter H in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/044_H_ladder_r1/dt.gif" alt="Dynamic Typography's animation of the H as a rocking stepladder."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/044_H_ladder_r1/astra.gif" alt="Astra's animation of the H as a rocking stepladder."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/044_H_ladder_r1/ours.gif" alt="Strike a Chord's animation of the H as a rocking stepladder."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A moth fluttering, its broad wings beating up and down&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/026_M_moth_r2/input.png" alt="The input letter M in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/026_M_moth_r2/dt.gif" alt="Dynamic Typography's animation of the M as a moth."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/026_M_moth_r2/astra.gif" alt="Astra's animation of the M as a moth."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/026_M_moth_r2/ours.gif" alt="Strike a Chord's animation of the M as a moth."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;An armoured knight swinging his long sword up overhead and down again&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/060_K_knight_r2/input.png" alt="The input letter K in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/060_K_knight_r2/dt.gif" alt="Dynamic Typography's animation of the K as a knight swinging his sword."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/060_K_knight_r2/astra.gif" alt="Astra's animation of the K as a knight swinging his sword."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/060_K_knight_r2/ours.gif" alt="Strike a Chord's animation of the K as a knight swinging his sword."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A lizard doing push-ups, tail flat&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/025_Z_lizard_doing/input.png" alt="The input letter Z in Josefin Sans."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/025_Z_lizard_doing/dt.gif" alt="Dynamic Typography's animation of the Z as a lizard doing push-ups."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/025_Z_lizard_doing/astra.gif" alt="Astra's animation of the Z as a lizard doing push-ups."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/025_Z_lizard_doing/ours.gif" alt="Strike a Chord's animation of the Z as a lizard doing push-ups."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A plume of smoke curling upward and unfurling as it rises&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/095_S_smoke_r1/input.png" alt="The input letter S in Roboto Bold."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/095_S_smoke_r1/dt.gif" alt="Dynamic Typography's animation of the S as a plume of smoke curling upward."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/095_S_smoke_r1/astra.gif" alt="Astra's animation of the S as a plume of smoke curling upward."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/095_S_smoke_r1/ours.gif" alt="Strike a Chord's animation of the S as a plume of smoke curling upward."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A man doing exercise by lifting two dumbbells in both hands&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/Y_gym/input.png" alt="The input letter Y in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/Y_gym/dt.gif" alt="Dynamic Typography's animation of the Y as a man lifting two dumbbells."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/Y_gym/astra.gif" alt="Astra's animation of the Y as a man lifting two dumbbells."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/Y_gym/ours.gif" alt="Strike a Chord's animation of the Y as a man lifting two dumbbells."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A boot kicking a ball, standing leg firm&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/076_L_boot_kicking/input.png" alt="The input letter L in Roboto Bold."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/076_L_boot_kicking/dt.gif" alt="Dynamic Typography's animation of the L as a boot kicking a ball."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/076_L_boot_kicking/astra.gif" alt="Astra's animation of the L as a boot kicking a ball."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/076_L_boot_kicking/ours.gif" alt="Strike a Chord's animation of the L as a boot kicking a ball."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A bat in flight flapping its two broad wings up and down&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/023_W_bat_r2/input.png" alt="The input letter W in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/023_W_bat_r2/dt.gif" alt="Dynamic Typography's animation of the W as a bat flapping its wings."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/023_W_bat_r2/astra.gif" alt="Astra's animation of the W as a bat flapping its wings."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/023_W_bat_r2/ours.gif" alt="Strike a Chord's animation of the W as a bat flapping its wings."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A camel walks steadily across the desert&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/M_camel/input.png" alt="The input letter M in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/M_camel/dt.gif" alt="Dynamic Typography's animation of the M as a walking camel."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/M_camel/astra.gif" alt="Astra's animation of the M as a walking camel."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/M_camel/ours.gif" alt="Strike a Chord's animation of the M as a walking camel."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A zigzag steel spring stretching out long and compressing flat&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/083_N_spring_r2/input.png" alt="The input letter N in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/083_N_spring_r2/dt.gif" alt="Dynamic Typography's animation of the N as a steel spring stretching and compressing."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/083_N_spring_r2/astra.gif" alt="Astra's animation of the N as a steel spring stretching and compressing."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/083_N_spring_r2/ours.gif" alt="Strike a Chord's animation of the N as a steel spring stretching and compressing."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A man doing Dumbbell Lateral Raise&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/T_lift/input.png" alt="The input letter T in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/T_lift/dt.gif" alt="Dynamic Typography's animation of the T as a man doing a dumbbell lateral raise."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/T_lift/astra.gif" alt="Astra's animation of the T as a man doing a dumbbell lateral raise."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/T_lift/ours.gif" alt="Strike a Chord's animation of the T as a man doing a dumbbell lateral raise."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A fat swan is swimming elegantly and stretching its neck on the water&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/S_swan/input.png" alt="The input letter S in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/S_swan/dt.gif" alt="Dynamic Typography's animation of the S as a swan stretching its neck."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/S_swan/astra.gif" alt="Astra's animation of the S as a swan stretching its neck."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/S_swan/ours.gif" alt="Strike a Chord's animation of the S as a swan stretching its neck."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A griffin perched on a banner pole, wings settling&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/010_P_griffin_perched/input.png" alt="The input letter P in Roboto Light."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/010_P_griffin_perched/dt.gif" alt="Dynamic Typography's animation of the P as a griffin perched on a banner pole."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/010_P_griffin_perched/astra.gif" alt="Astra's animation of the P as a griffin perched on a banner pole."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/010_P_griffin_perched/ours.gif" alt="Strike a Chord's animation of the P as a griffin perched on a banner pole."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A dog offering its paw, body seated&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/032_R_dog_offering/input.png" alt="The input letter R in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/032_R_dog_offering/dt.gif" alt="Dynamic Typography's animation of the R as a seated dog offering its paw."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/032_R_dog_offering/astra.gif" alt="Astra's animation of the R as a seated dog offering its paw."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/032_R_dog_offering/ours.gif" alt="Strike a Chord's animation of the R as a seated dog offering its paw."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A perched butterfly opening and closing its wings, body gripping the branch&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/004_Y_perched_butterfly/input.png" alt="The input letter Y in Luckiest Guy."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/004_Y_perched_butterfly/dt.gif" alt="Dynamic Typography's animation of the Y as a perched butterfly opening and closing its wings."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/004_Y_perched_butterfly/astra.gif" alt="Astra's animation of the Y as a perched butterfly opening and closing its wings."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/004_Y_perched_butterfly/ours.gif" alt="Strike a Chord's animation of the Y as a perched butterfly opening and closing its wings."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A brass gramophone horn swinging slowly from side to side&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/004_G_gramophone_r1/input.png" alt="The input letter G in Segoe Print."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/004_G_gramophone_r1/dt.gif" alt="Dynamic Typography's animation of the G as a gramophone horn swinging."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/004_G_gramophone_r1/astra.gif" alt="Astra's animation of the G as a gramophone horn swinging."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/004_G_gramophone_r1/ours.gif" alt="Strike a Chord's animation of the G as a gramophone horn swinging."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A pair of steel scissors opening wide and snapping shut&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/014_K_scissors_r2/input.png" alt="The input letter K in Roboto Light."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/014_K_scissors_r2/dt.gif" alt="Dynamic Typography's animation of the K as a pair of scissors."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/014_K_scissors_r2/astra.gif" alt="Astra's animation of the K as a pair of scissors."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/014_K_scissors_r2/ours.gif" alt="Strike a Chord's animation of the K as a pair of scissors."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A fencer lunging: back leg extended, arm thrust, torso stable&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/015_K_fencer_lunging/input.png" alt="The input letter K in Noteworthy Bold."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/015_K_fencer_lunging/dt.gif" alt="Dynamic Typography's animation of the K as a fencer lunging."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/015_K_fencer_lunging/astra.gif" alt="Astra's animation of the K as a fencer lunging."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/015_K_fencer_lunging/ours.gif" alt="Strike a Chord's animation of the K as a fencer lunging."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A runner jogging on the spot, one knee lifting high and dropping back down&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/098_R_runner_r1/input.png" alt="The input letter R in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/098_R_runner_r1/dt.gif" alt="Dynamic Typography's animation of the R as a runner jogging on the spot."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/098_R_runner_r1/astra.gif" alt="Astra's animation of the R as a runner jogging on the spot."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/098_R_runner_r1/ours.gif" alt="Strike a Chord's animation of the R as a runner jogging on the spot."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A monkey reaching out with one arm, body curled&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/024_C_monkey_reaching/input.png" alt="The input letter C in Roboto Bold."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/024_C_monkey_reaching/dt.gif" alt="Dynamic Typography's animation of the C as a monkey reaching out with one arm."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/024_C_monkey_reaching/astra.gif" alt="Astra's animation of the C as a monkey reaching out with one arm."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/024_C_monkey_reaching/ours.gif" alt="Strike a Chord's animation of the C as a monkey reaching out with one arm."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A toaster: body still, two slices popping at different times&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/061_E_toaster_body/input.png" alt="The input letter E in Indie Flower."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/061_E_toaster_body/dt.gif" alt="Dynamic Typography's animation of the E as a toaster with popping slices."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/061_E_toaster_body/astra.gif" alt="Astra's animation of the E as a toaster with popping slices."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/061_E_toaster_body/ours.gif" alt="Strike a Chord's animation of the E as a toaster with popping slices."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;An umpire signaling: legs planted, arms calling the play&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_sm/082_T_umpire_signaling/input.png" alt="The input letter T in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">Dynamic Typography</div><img src="assets/compare_sm/082_T_umpire_signaling/dt.gif" alt="Dynamic Typography's animation of the T as an umpire signaling a call."></div>
+          <div class="panel base"><div class="lab">Astra</div><img src="assets/compare_sm/082_T_umpire_signaling/astra.gif" alt="Astra's animation of the T as an umpire signaling a call."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_sm/082_T_umpire_signaling/ours.gif" alt="Strike a Chord's animation of the T as an umpire signaling a call."></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= baseline comparison: motion only ======================= -->
+<section id="compare-motion-only" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Comparison: Motion Only</h2>
+    <p class="callout">The letter is never reshaped here, so motion alone has to carry the concept. For Astra results we add the target letter and font in the prompt. Not every font is available to Astra, so it uses the closest one it has.</p>
+    <div class="cmp-grid" id="cmp-mo">
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A flag fluttering on its pole&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/011_F_flag_fluttering/input.png" alt="The input letter F in Kaushan Script."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/011_F_flag_fluttering/an.gif" alt="AniClipart's animation of the F as a flag fluttering on its pole."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/011_F_flag_fluttering/astra.gif" alt="Astra's font-only animation of the F as a flag fluttering on its pole."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/011_F_flag_fluttering/ours.gif" alt="Strike a Chord's animation of the F as a flag fluttering on its pole."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A ladder wobbling&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/015_H_ladder_wobbling/input.png" alt="The input letter H in KaushanScript Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/015_H_ladder_wobbling/an.gif" alt="AniClipart's animation of the H: a ladder wobbling."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/015_H_ladder_wobbling/astra.gif" alt="Astra's font-only animation of the H: a ladder wobbling."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/015_H_ladder_wobbling/ours.gif" alt="Strike a Chord's animation of the H: a ladder wobbling."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A lamp nodding its head&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/024_L_lamp_nodding/input.png" alt="The input letter L in KaushanScript Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/024_L_lamp_nodding/an.gif" alt="AniClipart's animation of the L: a lamp nodding its head."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/024_L_lamp_nodding/astra.gif" alt="Astra's font-only animation of the L: a lamp nodding its head."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/024_L_lamp_nodding/ours.gif" alt="Strike a Chord's animation of the L: a lamp nodding its head."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;Waves rolling across the sea&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/025_M_waves_rolling/input.png" alt="The input letter M in KaushanScript Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/025_M_waves_rolling/an.gif" alt="AniClipart's animation of the M: waves rolling across the sea."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/025_M_waves_rolling/astra.gif" alt="Astra's font-only animation of the M: waves rolling across the sea."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/025_M_waves_rolling/ours.gif" alt="Strike a Chord's animation of the M: waves rolling across the sea."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A flag zigzag rippling&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/027_N_flag_zigzag/input.png" alt="The input letter N in KaushanScript Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/027_N_flag_zigzag/an.gif" alt="AniClipart's animation of the N: a flag zigzag rippling."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/027_N_flag_zigzag/astra.gif" alt="Astra's font-only animation of the N: a flag zigzag rippling."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/027_N_flag_zigzag/ours.gif" alt="Strike a Chord's animation of the N: a flag zigzag rippling."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A scarecrow's arms bouncing in wind&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/040_T_scarecrow's_arms/input.png" alt="The input letter T in KaushanScript Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/040_T_scarecrow's_arms/an.gif" alt="AniClipart's animation of the T: a scarecrow&#x27;s arms bouncing in wind."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/040_T_scarecrow's_arms/astra.gif" alt="Astra's font-only animation of the T: a scarecrow&#x27;s arms bouncing in wind."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/040_T_scarecrow's_arms/ours.gif" alt="Strike a Chord's animation of the T: a scarecrow&#x27;s arms bouncing in wind."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A man cheering with raised arms&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/049_Y_man_cheering/input.png" alt="The input letter Y in KaushanScript Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/049_Y_man_cheering/an.gif" alt="AniClipart's animation of the Y: a man cheering with raised arms."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/049_Y_man_cheering/astra.gif" alt="Astra's font-only animation of the Y: a man cheering with raised arms."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/049_Y_man_cheering/ours.gif" alt="Strike a Chord's animation of the Y: a man cheering with raised arms."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A soldier marching in place, stiff and rhythmic&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/004_H_soldier_marching/input.png" alt="The input letter H in LuckiestGuy Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/004_H_soldier_marching/an.gif" alt="AniClipart's animation of the H: a soldier marching in place, stiff and rhythmic."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/004_H_soldier_marching/astra.gif" alt="Astra's font-only animation of the H: a soldier marching in place, stiff and rhythmic."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/004_H_soldier_marching/ours.gif" alt="Strike a Chord's animation of the H: a soldier marching in place, stiff and rhythmic."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A happy dog wagging its tail&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/019_J_happy_dog/input.png" alt="The input letter J in Quicksand."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/019_J_happy_dog/an.gif" alt="AniClipart's animation of the J: a happy dog wagging its tail."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/019_J_happy_dog/astra.gif" alt="Astra's font-only animation of the J: a happy dog wagging its tail."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/019_J_happy_dog/ours.gif" alt="Strike a Chord's animation of the J: a happy dog wagging its tail."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A student raising one arm to ask a question&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/030_Y_student_raising/input.png" alt="The input letter Y in HobeauxRococeaux Sherman."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/030_Y_student_raising/an.gif" alt="AniClipart's animation of the Y: a student raising one arm to ask a question."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/030_Y_student_raising/astra.gif" alt="Astra's font-only animation of the Y: a student raising one arm to ask a question."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/030_Y_student_raising/ours.gif" alt="Strike a Chord's animation of the Y: a student raising one arm to ask a question."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A boxer throwing a punch&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/031_K_boxer_throwing/input.png" alt="The input letter K in DeliusUnicase Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/031_K_boxer_throwing/an.gif" alt="AniClipart's animation of the K: a boxer throwing a punch."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/031_K_boxer_throwing/astra.gif" alt="Astra's font-only animation of the K: a boxer throwing a punch."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/031_K_boxer_throwing/ours.gif" alt="Strike a Chord's animation of the K: a boxer throwing a punch."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;Tweezers opening and closing&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/034_V_tweezers_opening/input.png" alt="The input letter V in LuckiestGuy Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/034_V_tweezers_opening/an.gif" alt="AniClipart's animation of the V: tweezers opening and closing."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/034_V_tweezers_opening/astra.gif" alt="Astra's font-only animation of the V: tweezers opening and closing."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/034_V_tweezers_opening/ours.gif" alt="Strike a Chord's animation of the V: tweezers opening and closing."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A snake slithering&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/036_S_snake_slithering/input.png" alt="The input letter S in Noteworthy Bold."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/036_S_snake_slithering/an.gif" alt="AniClipart's animation of the S: a snake slithering."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/036_S_snake_slithering/astra.gif" alt="Astra's font-only animation of the S: a snake slithering."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/036_S_snake_slithering/ours.gif" alt="Strike a Chord's animation of the S: a snake slithering."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A snail wiggling its antennae&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/035_U_snail_wiggling/input.png" alt="The input letter U in Noteworthy Bold."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/035_U_snail_wiggling/an.gif" alt="AniClipart's animation of the U: a snail wiggling its antennae."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/035_U_snail_wiggling/astra.gif" alt="Astra's font-only animation of the U: a snail wiggling its antennae."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/035_U_snail_wiggling/ours.gif" alt="Strike a Chord's animation of the U: a snail wiggling its antennae."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A cradle rocking gently&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/039_U_cradle_rocking/input.png" alt="The input letter U in Roboto Light."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/039_U_cradle_rocking/an.gif" alt="AniClipart's animation of the U: a cradle rocking gently."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/039_U_cradle_rocking/astra.gif" alt="Astra's font-only animation of the U: a cradle rocking gently."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/039_U_cradle_rocking/ours.gif" alt="Strike a Chord's animation of the U: a cradle rocking gently."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A blob of jelly jiggling&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/049_B_blob_jelly/input.png" alt="The input letter B in segoepr."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/049_B_blob_jelly/an.gif" alt="AniClipart's animation of the B: a blob of jelly jiggling."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/049_B_blob_jelly/astra.gif" alt="Astra's font-only animation of the B: a blob of jelly jiggling."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/049_B_blob_jelly/ours.gif" alt="Strike a Chord's animation of the B: a blob of jelly jiggling."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;Ocean waves rolling and undulating&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/054_W_ocean_waves/input.png" alt="The input letter W in Quicksand."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/054_W_ocean_waves/an.gif" alt="AniClipart's animation of the W: ocean waves rolling and undulating."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/054_W_ocean_waves/astra.gif" alt="Astra's font-only animation of the W: ocean waves rolling and undulating."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/054_W_ocean_waves/ours.gif" alt="Strike a Chord's animation of the W: ocean waves rolling and undulating."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A mountain range rippling in a mirage&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/055_M_mountain_range/input.png" alt="The input letter M in IndieFlower Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/055_M_mountain_range/an.gif" alt="AniClipart's animation of the M: a mountain range rippling in a mirage."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/055_M_mountain_range/astra.gif" alt="Astra's font-only animation of the M: a mountain range rippling in a mirage."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/055_M_mountain_range/ours.gif" alt="Strike a Chord's animation of the M: a mountain range rippling in a mirage."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A sad clown drooping, head lowering&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/063_P_sad_clown/input.png" alt="The input letter P in Saira Regular."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/063_P_sad_clown/an.gif" alt="AniClipart's animation of the P: a sad clown drooping, head lowering."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/063_P_sad_clown/astra.gif" alt="Astra's font-only animation of the P: a sad clown drooping, head lowering."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/063_P_sad_clown/ours.gif" alt="Strike a Chord's animation of the P: a sad clown drooping, head lowering."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;An excited puppy bouncing&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/065_R_excited_puppy/input.png" alt="The input letter R in JosefinSans Light."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/065_R_excited_puppy/an.gif" alt="AniClipart's animation of the R: an excited puppy bouncing."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/065_R_excited_puppy/astra.gif" alt="Astra's font-only animation of the R: an excited puppy bouncing."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/065_R_excited_puppy/ours.gif" alt="Strike a Chord's animation of the R: an excited puppy bouncing."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A hammock swinging in a breeze&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/078_U_hammock_swinging/input.png" alt="The input letter U in Quicksand."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/078_U_hammock_swinging/an.gif" alt="AniClipart's animation of the U as a hammock swinging in a breeze."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/078_U_hammock_swinging/astra.gif" alt="Astra's font-only animation of the U as a hammock swinging in a breeze."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/078_U_hammock_swinging/ours.gif" alt="Strike a Chord's animation of the U as a hammock swinging in a breeze."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A rubber ball bouncing&rdquo;</figcaption>
+        <div class="panels four">
+          <div class="panel"><div class="lab">Input</div><img src="assets/compare_mo/037_O_rubber_ball/input.png" alt="The input letter O in Quicksand."></div>
+          <div class="panel base"><div class="lab">AniClipart</div><img src="assets/compare_mo/037_O_rubber_ball/an.gif" alt="AniClipart's animation of the O as a rubber ball bouncing."></div>
+          <div class="panel base"><div class="lab">Astra (font only)</div><img src="assets/compare_mo/037_O_rubber_ball/astra.gif" alt="Astra's font-only animation of the O as a rubber ball bouncing."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/compare_mo/037_O_rubber_ball/ours.gif" alt="Strike a Chord's animation of the O as a rubber ball bouncing."></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ablations ======================= -->
+<section id="ablations" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Ablations</h2>
+    <p class="callout">Each arm removes one component and is otherwise identical to the full model,
+    on the same case with the same seed: the drive is left free per frame, only whole-letter modes
+    are kept, the layered basis is flattened, or the basis is cut to four eigenmodes.</p>
+    <div class="cmp-grid one" id="cmp-ablation">
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A signaller swinging both outstretched arms up and down together&rdquo;</figcaption>
+        <div class="panels six">
+          <div class="panel"><div class="lab">Input</div><img src="assets/ablation/drive/048_K_signaller_r1/input.png" alt="The input letter K in KaushanScript."></div>
+          <div class="panel ours"><div class="lab">Full model</div><img src="assets/ablation/drive/048_K_signaller_r1/full.gif" alt="The full model animating the K."></div>
+          <div class="panel base"><div class="lab">Free per-frame drive</div><img src="assets/ablation/drive/048_K_signaller_r1/abl.gif" alt="The free per-frame drive arm animating the K."></div>
+          <div class="panel base"><div class="lab">Global modes only</div><img src="assets/ablation/global/048_K_signaller_r1/abl.gif" alt="The global modes only arm animating the K."></div>
+          <div class="panel base"><div class="lab">Flat segmentation</div><img src="assets/ablation/flat/048_K_signaller_r1/abl.gif" alt="The flat segmentation arm animating the K."></div>
+          <div class="panel base"><div class="lab">Four eigenmodes</div><img src="assets/ablation/modes4/048_K_signaller_r1/abl.gif" alt="The four eigenmodes arm animating the K."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A bird in flight beating both wings through deep full strokes, up and down&rdquo;</figcaption>
+        <div class="panels six">
+          <div class="panel"><div class="lab">Input</div><img src="assets/ablation/drive/038_V_bird_r1/input.png" alt="The input letter V in Roboto Light."></div>
+          <div class="panel ours"><div class="lab">Full model</div><img src="assets/ablation/drive/038_V_bird_r1/full.gif" alt="The full model animating the V as a bird in flight."></div>
+          <div class="panel base"><div class="lab">Free per-frame drive</div><img src="assets/ablation/drive/038_V_bird_r1/abl.gif" alt="The free per-frame drive arm animating the V as a bird in flight."></div>
+          <div class="panel base"><div class="lab">Global modes only</div><img src="assets/ablation/global/038_V_bird_r1/abl.gif" alt="The global modes only arm animating the V as a bird in flight."></div>
+          <div class="panel base"><div class="lab">Flat segmentation</div><img src="assets/ablation/flat/038_V_bird_r1/abl.gif" alt="The flat segmentation arm animating the V as a bird in flight."></div>
+          <div class="panel base"><div class="lab">Four eigenmodes</div><img src="assets/ablation/modes4/038_V_bird_r1/abl.gif" alt="The four eigenmodes arm animating the V as a bird in flight."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A weightlifter pressing a loaded barbell up overhead and lowering it back down&rdquo;</figcaption>
+        <div class="panels six">
+          <div class="panel"><div class="lab">Input</div><img src="assets/ablation/drive/066_T_weights_r1/input.png" alt="The input letter T in Roboto Light."></div>
+          <div class="panel ours"><div class="lab">Full model</div><img src="assets/ablation/drive/066_T_weights_r1/full.gif" alt="The full model animating the T as a weightlifter pressing a barbell overhead."></div>
+          <div class="panel base"><div class="lab">Free per-frame drive</div><img src="assets/ablation/drive/066_T_weights_r1/abl.gif" alt="The free per-frame drive arm animating the T as a weightlifter pressing a barbell overhead."></div>
+          <div class="panel base"><div class="lab">Global modes only</div><img src="assets/ablation/global/066_T_weights_r1/abl.gif" alt="The global modes only arm animating the T as a weightlifter pressing a barbell overhead."></div>
+          <div class="panel base"><div class="lab">Flat segmentation</div><img src="assets/ablation/flat/066_T_weights_r1/abl.gif" alt="The flat segmentation arm animating the T as a weightlifter pressing a barbell overhead."></div>
+          <div class="panel base"><div class="lab">Four eigenmodes</div><img src="assets/ablation/modes4/066_T_weights_r1/abl.gif" alt="The four eigenmodes arm animating the T as a weightlifter pressing a barbell overhead."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A slung hammock swinging back and forth in a wide lazy arc&rdquo;</figcaption>
+        <div class="panels six">
+          <div class="panel"><div class="lab">Input</div><img src="assets/ablation/drive/063_U_hammock_r1/input.png" alt="The input letter U in Quicksand."></div>
+          <div class="panel ours"><div class="lab">Full model</div><img src="assets/ablation/drive/063_U_hammock_r1/full.gif" alt="The full model animating the U as a slung hammock swinging in a wide lazy arc."></div>
+          <div class="panel base"><div class="lab">Free per-frame drive</div><img src="assets/ablation/drive/063_U_hammock_r1/abl.gif" alt="The free per-frame drive arm animating the U as a slung hammock swinging in a wide lazy arc."></div>
+          <div class="panel base"><div class="lab">Global modes only</div><img src="assets/ablation/global/063_U_hammock_r1/abl.gif" alt="The global modes only arm animating the U as a slung hammock swinging in a wide lazy arc."></div>
+          <div class="panel base"><div class="lab">Flat segmentation</div><img src="assets/ablation/flat/063_U_hammock_r1/abl.gif" alt="The flat segmentation arm animating the U as a slung hammock swinging in a wide lazy arc."></div>
+          <div class="panel base"><div class="lab">Four eigenmodes</div><img src="assets/ablation/modes4/063_U_hammock_r1/abl.gif" alt="The four eigenmodes arm animating the U as a slung hammock swinging in a wide lazy arc."></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+<!-- ======================= analysis tabs ======================= -->
+<!-- A second, independent tab group for studies of the method (speed control now, ablations
+     later). js/site.js treats every nav.tabbar as its own group. -->
+<div class="analysis-head">
+  <div class="wrap"><h2>Further Analysis</h2></div>
+</div>
+<nav class="tabbar analysis" id="analysis-tabs" aria-label="Analysis sections">
+  <div class="wrap tabs" role="tablist">
+    <button class="tab" role="tab" aria-controls="analysis-speed">Speed (base_freq)</button>
+    <button class="tab" role="tab" aria-controls="analysis-interaction">Two Letter Interaction</button>
+    <button class="tab" role="tab" aria-controls="analysis-harmonic">Harmonic Analysis</button>
+  </div>
+</nav>
+
+<!-- ======================= analysis: speed ======================= -->
+<section id="analysis-speed" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Controlling Speed with base_freq</h2>
+    <p class="callout">base_freq sets how many motion cycles fit into one loop. Raising it encourages
+    faster, larger motion, and in most cases the clip speeds up accordingly. It is a nudge rather
+    than a hard setting: the diffusion model can still adjust the pace, so the effect is not
+    guaranteed every time. At base_freq 0.5 the loop holds only half a cycle, which removes the
+    requirement that the letter return to its original position.</p>
+    <div class="cmp-grid" id="cmp-speed">
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A heavy boot tapping its toe up and down against the ground&rdquo;</figcaption>
+        <div class="panels">
+          <div class="panel"><div class="lab">base_freq 0.5</div><img src="assets/speed/003_L_heavy_boot/f05.gif" alt="The L animated at base_freq 0.5."></div>
+          <div class="panel ours"><div class="lab">base_freq 1.0 (default)</div><img src="assets/speed/003_L_heavy_boot/f10.gif" alt="The L animated at base_freq 1.0, the default."></div>
+          <div class="panel"><div class="lab">base_freq 2.0</div><img src="assets/speed/003_L_heavy_boot/f20.gif" alt="The L animated at base_freq 2.0."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A lizard scurrying forward, its body flexing from side to side with each step&rdquo;</figcaption>
+        <div class="panels">
+          <div class="panel"><div class="lab">base_freq 0.5</div><img src="assets/speed/019_Z_lizard_scurrying/f05.gif" alt="The Z animated at base_freq 0.5."></div>
+          <div class="panel ours"><div class="lab">base_freq 1.0 (default)</div><img src="assets/speed/019_Z_lizard_scurrying/f10.gif" alt="The Z animated at base_freq 1.0, the default."></div>
+          <div class="panel"><div class="lab">base_freq 2.0</div><img src="assets/speed/019_Z_lizard_scurrying/f20.gif" alt="The Z animated at base_freq 2.0."></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= analysis: two letter interaction ======================= -->
+<section id="analysis-interaction" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Two Letter Interaction</h2>
+    <p class="callout">Two letters animated together, so the motion of one acts on the other.</p>
+    <div class="cmp-grid" id="cmp-interaction">
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;Two fencers, feet fixed, sword-arms trading parries&rdquo;</figcaption>
+        <div class="panels two">
+          <div class="panel"><div class="lab">Input</div><img src="assets/interaction/002_KR_fencers/input.png" alt="The input letters K and R in Segoe Print."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/interaction/002_KR_fencers/ours.gif" alt="The K and R animated together as two fencers trading parries."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;The fist knocking, the door rattling on its hinge&rdquo;</figcaption>
+        <div class="panels two">
+          <div class="panel"><div class="lab">Input</div><img src="assets/interaction/015_CK_rock/input.png" alt="The input letters C and K in Noteworthy Bold."></div>
+          <div class="panel ours"><div class="lab">Strike a Chord</div><img src="assets/interaction/015_CK_rock/ours.gif" alt="The C and K animated together as a fist knocking and a door rattling on its hinge."></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= analysis: harmonic analysis ======================= -->
+<section id="analysis-harmonic" class="tab-panel" role="tabpanel">
+  <div class="wrap">
+    <h2>Harmonic Analysis</h2>
+    <p class="callout">K sets how many harmonics the drive may use. With K = 1 each mode plays a
+    single sine; raising it to K = 5 lets the same modes carry a richer, less even rhythm.</p>
+    <div class="cmp-grid" id="cmp-harmonic">
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A heavy boot tapping its toe up and down against the ground&rdquo;</figcaption>
+        <div class="panels">
+          <div class="panel"><div class="lab">Input</div><img src="assets/harmonic/055_L_boot_r1/input.png" alt="The input letter L in HobeauxRococeaux Sherman."></div>
+          <div class="panel"><div class="lab">K = 1</div><img src="assets/harmonic/055_L_boot_r1/k1.gif" alt="The L animated as a heavy boot tapping its toe with one harmonic."></div>
+          <div class="panel ours"><div class="lab">K = 5</div><img src="assets/harmonic/055_L_boot_r1/k5.gif" alt="The L animated as a heavy boot tapping its toe with five harmonics."></div>
+        </div>
+      </figure>
+      <figure class="cmp">
+        <figcaption class="prompt">&ldquo;A heavy hammer swinging down onto an anvil and lifting back up&rdquo;</figcaption>
+        <div class="panels">
+          <div class="panel"><div class="lab">Input</div><img src="assets/harmonic/072_T_hammer_r1/input.png" alt="The input letter T in Roboto Bold."></div>
+          <div class="panel"><div class="lab">K = 1</div><img src="assets/harmonic/072_T_hammer_r1/k1.gif" alt="The T animated as a hammer swinging onto an anvil with one harmonic."></div>
+          <div class="panel ours"><div class="lab">K = 5</div><img src="assets/harmonic/072_T_hammer_r1/k5.gif" alt="The T animated as a hammer swinging onto an anvil with five harmonics."></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<script src="data/results.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
