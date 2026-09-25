@@ -404,6 +404,9 @@ tr:last-child td{ border-bottom:0; }
   background:#fff; border:1px solid var(--rule); border-radius:14px; }
 @media (max-width:1000px){ .video-fig{ width:100%; } }
 
+/* a single-card grid that should not run the full page width */
+.cmp-grid.narrow-card{ max-width:1100px; margin-inline:auto; }
+
 /* ---------- phones and small tablets --------------------------------------- */
 /* The page is authored at a doubled root size for big displays. On a narrow screen that
    leaves a few words per line, and the 3rem gutters eat a quarter of the width, so the root
