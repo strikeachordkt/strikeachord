@@ -432,6 +432,19 @@ tr:last-child td{ border-bottom:0; }
   .pager-btn{ width:2.1rem; height:2.1rem; font-size:1.2rem; }
 }
 
+/* Further Analysis: the whole card is shown at 70% of the column, so these sit quieter
+   than the result galleries */
+#analysis-speed .cmp-grid,
+#analysis-interaction .cmp-grid,
+#analysis-harmonic .cmp-grid,
+#analysis-regions .cmp-grid{ width:70%; margin-inline:auto; }
+@media (max-width:900px){
+  #analysis-speed .cmp-grid,
+  #analysis-interaction .cmp-grid,
+  #analysis-harmonic .cmp-grid,
+  #analysis-regions .cmp-grid{ width:100%; }
+}
+
 /* ---------- bibtex -------------------------------------------------------- */
 pre.bib{
   background:var(--card); border:1px solid var(--rule); border-radius:12px;
