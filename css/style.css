@@ -397,6 +397,46 @@ tr:last-child td{ border-bottom:0; }
   .pager{ grid-template-columns:auto 1fr auto; grid-template-areas:"grid grid grid" "prev count next"; }
 }
 
+/* ---------- title ---------------------------------------------------------- */
+/* A slow highlight travels across the title every few seconds and the ! rocks once in a
+   while. Both are small on purpose: the page is about the animations below. The shine only
+   paints where background-clip:text works, so the plain colour stays the fallback. */
+@supports (-webkit-background-clip: text) or (background-clip: text){
+  .hero h1.title{
+    background:linear-gradient(100deg,
+      var(--ink) 40%, #6f7680 48%, #7d848e 50%, #6f7680 52%, var(--ink) 60%);
+    background-size:200% 100%;
+    background-position:100% 0;
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent;
+    animation:title-shine 9s ease-in-out infinite;
+  }
+}
+/* the highlight sits mid-gradient, so sweeping the position from 100% to 0% carries it across
+   the words once, then the title rests for most of the cycle */
+@keyframes title-shine{
+  0%, 6%   { background-position:100% 0; }
+  34%,100% { background-position:0% 0; }
+}
+.hero h1 .bang{
+  display:inline-block; transform-origin:50% 88%;
+  animation:bang-wobble 6s ease-in-out infinite;
+  /* the ! is transformed, so it paints outside the title's clipped background and would come
+     out invisible: give it the ink colour back */
+  color:var(--ink); -webkit-text-fill-color:var(--ink);
+}
+@keyframes bang-wobble{
+  0%, 62%, 100% { transform:rotate(0deg); }
+  68%  { transform:rotate(7deg); }
+  74%  { transform:rotate(-5deg); }
+  80%  { transform:rotate(3deg); }
+  86%  { transform:rotate(-1.5deg); }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero h1.title{ animation:none; background:none; color:var(--ink); }
+  .hero h1 .bang{ animation:none; }
+}
+
 /* ---------- teaser video --------------------------------------------------- */
 /* 70% of the column like the paper's teaser figure, and never taller than the window */
 .video-fig{ width:70%; margin:0 auto; }
