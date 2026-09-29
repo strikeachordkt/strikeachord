@@ -928,7 +928,7 @@
 </div>
 <nav class="tabbar analysis" id="analysis-tabs" aria-label="Analysis sections">
   <div class="wrap tabs" role="tablist">
-    <button class="tab" role="tab" aria-controls="analysis-speed">Speed (base_freq)</button>
+    <button class="tab" role="tab" aria-controls="analysis-speed">Speed (base frequency)</button>
     <button class="tab" role="tab" aria-controls="analysis-interaction">Two Letter Interaction</button>
     <button class="tab" role="tab" aria-controls="analysis-harmonic">Harmonic Analysis</button>
     <button class="tab" role="tab" aria-controls="analysis-regions">Region Analysis</button>
@@ -938,27 +938,27 @@
 <!-- ======================= analysis: speed ======================= -->
 <section id="analysis-speed" class="tab-panel" role="tabpanel">
   <div class="wrap">
-    <h2>Controlling Speed with base_freq</h2>
-    <p class="callout">base_freq sets how many motion cycles fit into one loop. Raising it encourages
+    <h2>Controlling Speed with base frequency</h2>
+    <p class="callout">Base frequency sets how many motion cycles fit into one loop. Raising it encourages
     faster, larger motion, and in most cases the clip speeds up accordingly. It is a nudge rather
     than a hard setting: the diffusion model can still adjust the pace, so the effect is not
-    guaranteed every time. At base_freq 0.5 the loop holds only half a cycle, which removes the
+    guaranteed every time. At base frequency 0.5 the loop holds only half a cycle, which removes the
     requirement that the letter return to its original position.</p>
     <div class="cmp-grid" id="cmp-speed">
       <figure class="cmp">
         <figcaption class="prompt">&ldquo;A heavy boot tapping its toe up and down against the ground&rdquo;</figcaption>
         <div class="panels">
-          <div class="panel"><div class="lab">base_freq 0.5</div><img src="assets/speed/003_L_heavy_boot/f05.gif" alt="The L animated at base_freq 0.5."></div>
-          <div class="panel ours"><div class="lab">base_freq 1.0 (default)</div><img src="assets/speed/003_L_heavy_boot/f10.gif" alt="The L animated at base_freq 1.0, the default."></div>
-          <div class="panel"><div class="lab">base_freq 2.0</div><img src="assets/speed/003_L_heavy_boot/f20.gif" alt="The L animated at base_freq 2.0."></div>
+          <div class="panel"><div class="lab">base frequency 0.5</div><img src="assets/speed/003_L_heavy_boot/f05.gif" alt="The L animated at base frequency 0.5."></div>
+          <div class="panel ours"><div class="lab">base frequency 1.0 (default)</div><img src="assets/speed/003_L_heavy_boot/f10.gif" alt="The L animated at base frequency 1.0, the default."></div>
+          <div class="panel"><div class="lab">base frequency 2.0</div><img src="assets/speed/003_L_heavy_boot/f20.gif" alt="The L animated at base frequency 2.0."></div>
         </div>
       </figure>
       <figure class="cmp">
         <figcaption class="prompt">&ldquo;A lizard scurrying forward, its body flexing from side to side with each step&rdquo;</figcaption>
         <div class="panels">
-          <div class="panel"><div class="lab">base_freq 0.5</div><img src="assets/speed/019_Z_lizard_scurrying/f05.gif" alt="The Z animated at base_freq 0.5."></div>
-          <div class="panel ours"><div class="lab">base_freq 1.0 (default)</div><img src="assets/speed/019_Z_lizard_scurrying/f10.gif" alt="The Z animated at base_freq 1.0, the default."></div>
-          <div class="panel"><div class="lab">base_freq 2.0</div><img src="assets/speed/019_Z_lizard_scurrying/f20.gif" alt="The Z animated at base_freq 2.0."></div>
+          <div class="panel"><div class="lab">base frequency 0.5</div><img src="assets/speed/019_Z_lizard_scurrying/f05.gif" alt="The Z animated at base frequency 0.5."></div>
+          <div class="panel ours"><div class="lab">base frequency 1.0 (default)</div><img src="assets/speed/019_Z_lizard_scurrying/f10.gif" alt="The Z animated at base frequency 1.0, the default."></div>
+          <div class="panel"><div class="lab">base frequency 2.0</div><img src="assets/speed/019_Z_lizard_scurrying/f20.gif" alt="The Z animated at base frequency 2.0."></div>
         </div>
       </figure>
     </div>
