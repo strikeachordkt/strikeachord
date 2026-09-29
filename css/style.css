@@ -328,6 +328,12 @@ tr:last-child td{ border-bottom:0; }
 .cmp .panels.six .panel + .panel{ border-left:1px solid var(--rule-2); }
 .cmp-grid.one{ grid-template-columns:1fr; }
 .cmp .panel + .panel{ border-left:1px solid var(--rule-2); }
+/* A long label like "Astra (font only)" would otherwise widen or shorten its own clip: with
+   plain 1fr tracks the label's min-content sets the column width, and the square clip follows
+   it. min-width:0 pins every column to an equal share, and letting the label fill the space
+   above the clip keeps the clips level when one label wraps to two lines. */
+.cmp .panel{ display:flex; flex-direction:column; min-width:0; }
+.cmp .panel .lab{ flex:1 0 auto; }
 .cmp .panel .lab{
   font-size:.56rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
   color:var(--ink-3); padding:.45rem .6rem 0;
