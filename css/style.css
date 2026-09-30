@@ -285,6 +285,14 @@ tr:last-child td{ border-bottom:0; }
 @media (max-width:1000px){ .words{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:620px){  .words{ grid-template-columns:1fr; } }
 .word{ margin:0; }
+/* the word above the clip, so it is clear which letter of which word is animated: the word in
+   dark grey, the animated letter tinted */
+.wordmark{
+  display:flex; justify-content:center; gap:.02em;
+  font-size:.72rem; font-weight:650; letter-spacing:.24em; text-indent:.24em;
+  color:var(--ink-2); margin:0 0 .4rem;
+}
+.wordmark .on{ color:var(--ours); background:rgba(42,63,143,.11); border-radius:4px; }
 /* Every clip is cropped to its own content, so aspect ratios run from 1.4 (YAY) to 4.5
    (ACROBAT). Boxing them to one ratio and letting each sit inside it evens the grid out;
    the letterboxing is white on a white card, so it reads as padding, not as bars. */

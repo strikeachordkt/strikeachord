@@ -497,3 +497,40 @@ $$("nav.tabbar").forEach(function tabGroup(bar) {
     document.getElementById("abstract").scrollIntoView({ behavior: "smooth" });
   }));
 })();
+
+/* ---------- word marks -----------------------------------------------------
+ * Every word clip animates one letter of the word, and which one is not always obvious: HEEL
+ * animates the last L, ACROBAT the first A. Each card's alt text already names the word and
+ * the letter, so the mark above the clip is built from it: the word in dark grey with the
+ * animated letter tinted. An ordinal ("the final L") picks the occurrence; without one it is
+ * the first, which matches every clip in the set. */
+(function wordMarks() {
+  const ORD = { first: 0, second: 1, third: 2, fourth: 3, fifth: 4 };
+  // "The word HEEL, with the final L animated ..."; a few read "K.O, with the K animated ..."
+  const RE = /^(?:The word )?([A-Z][A-Z.]*), with the (first |second |third |fourth |fifth |final |last )?([A-Z]) /;
+  $$("figure.word").forEach(fig => {
+    const img = fig.querySelector("img");
+    if (!img || fig.querySelector(".wordmark")) return;
+    const m = RE.exec(img.getAttribute("alt") || "");
+    if (!m) return;
+    const [, word, ordinal, letter] = m;
+    const ord = ordinal ? ordinal.trim() : "";
+    let slot;
+    if (ord === "final" || ord === "last") slot = word.lastIndexOf(letter);
+    else {
+      let n = ORD[ord] || 0;
+      slot = -1;
+      do { slot = word.indexOf(letter, slot + 1); } while (n-- > 0 && slot !== -1);
+    }
+    const mark = document.createElement("div");
+    mark.className = "wordmark";
+    mark.setAttribute("aria-hidden", "true");   // the alt text already says all of this
+    [...word].forEach((ch, i) => {
+      const s = document.createElement("span");
+      s.textContent = ch;
+      if (i === slot) s.className = "on";
+      mark.appendChild(s);
+    });
+    fig.insertBefore(mark, img);
+  });
+})();
