@@ -135,7 +135,7 @@ p:last-child{ margin-bottom:0; }
 
 /* ---------- abstract ------------------------------------------------------ */
 .abstract{
-  font-size:1.2rem; line-height:1.72; color:var(--ink-2);   /* abstract */
+  font-size:.9rem; line-height:1.65; color:var(--ink-2);   /* abstract */
   max-width:none;                 /* one column, running the full content width */
 }
 .abstract p{ margin:0 0 1em; }
