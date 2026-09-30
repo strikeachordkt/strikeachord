@@ -300,9 +300,13 @@ tr:last-child td{ border-bottom:0; }
   width:100%; aspect-ratio:var(--word-ratio, 5/2); object-fit:contain;
   background:#fff; border:1px solid var(--rule); border-radius:14px;
 }
+/* the prompt reads as a plate caption under the clip: the title's serif, italic and centred
+   under the centred word */
 .word figcaption{
-  font-size:.78rem; line-height:1.45; color:var(--ink-3);
-  margin-top:.5rem; padding:0 .15rem;
+  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+  font-style:italic; font-size:.86rem; line-height:1.5; color:var(--ink-2);
+  text-align:center; text-wrap:balance;
+  margin-top:.55rem; padding:0 .4rem;
 }
 
 /* ---------- baseline comparisons ------------------------------------------ */
@@ -320,8 +324,9 @@ tr:last-child td{ border-bottom:0; }
       display:flex; flex-direction:column; }
 .cmp .prompt{ flex:1 0 auto; }
 .cmp .prompt{
-  font-size:.82rem; line-height:1.45; color:var(--ink-2);
-  padding:.7rem .9rem; border-bottom:1px solid var(--rule-2);
+  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+  font-style:italic; font-size:.88rem; line-height:1.5; color:var(--ink-2);
+  padding:.75rem .95rem; border-bottom:1px solid var(--rule-2);
 }
 .cmp .panels{ display:grid; grid-template-columns:repeat(3,1fr); }
 .cmp .panels.two{ grid-template-columns:repeat(2,1fr); }   /* interaction cards: input + ours */
