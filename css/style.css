@@ -62,7 +62,8 @@ p:last-child{ margin-bottom:0; }
   font-size:.72rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
   color:var(--ink-3); margin:0 0 .9rem;
 }
-.lede{ font-size:1.09rem; color:var(--ink-2); max-width:var(--measure); }
+.lede{ font-size:1.09rem; color:var(--ink-2); max-width:var(--measure);
+       text-align:center; margin-inline:auto; }
 /* .wide opts a block out of the reading measure and lets it run the full column */
 .lede.wide{ max-width:none; }
 .section-head{ margin-bottom:clamp(1.6rem,3vw,2.4rem); }
@@ -136,7 +137,8 @@ p:last-child{ margin-bottom:0; }
 /* ---------- abstract ------------------------------------------------------ */
 .abstract{
   font-size:.9rem; line-height:1.65; color:var(--ink-2);   /* abstract */
-  max-width:none;                 /* one column, running the full content width */
+  text-align:center;
+  max-width:96ch; margin-inline:auto;   /* centred, and short enough to stay readable */
 }
 .abstract p{ margin:0 0 1em; }
 
@@ -264,18 +266,23 @@ tr:last-child td{ border-bottom:0; }
 /* A standing note about how to read the results grids: full width and set larger than
    body copy, so it is read before the examples rather than skimmed past. */
 .callout{
-  max-width:none;
+  max-width:96ch; margin-inline:auto;
   font-size:clamp(.89rem, 2.08vw, 1.15rem);   /* the section intros */
   line-height:1.5; letter-spacing:-.008em; color:var(--ink);
-  border-left:4px solid var(--accent);
-  padding:.9rem 0 .9rem 1.4rem;
-  margin:0 0 clamp(1.8rem,3vw,2.6rem);
+  text-align:center;
+  padding:0;
+  margin-bottom:clamp(1.8rem,3vw,2.6rem);
+}
+/* the accent that used to run down the left edge, now a short rule centred above the text */
+.callout::before{
+  content:""; display:block; width:2.6rem; height:3px; border-radius:2px;
+  background:var(--accent); margin:0 auto .85rem;
 }
 .callout b{ font-weight:650; }
 /* the note now sits outside any section, above the tab bar, so it carries its own spacing
    and the rule that divides it from the section above */
 .results-note{ border-top:1px solid var(--rule); padding-block:clamp(1rem,2vw,1.5rem); }
-.results-note .callout{ margin:0; }
+.results-note .callout{ margin-block:0; }
 
 /* ---------- word results -------------------------------------------------- */
 .words{
